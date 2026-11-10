@@ -1,0 +1,121 @@
+.stat {
+  @include surface;
+  position: relative;
+  container-type: inline-size;
+  padding: $space-4;
+  overflow: hidden;
+  min-width: 0;
+  transition:
+    border-color $duration-base,
+    transform $duration-base $ease-out;
+
+  @include hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--tone-soft), transparent 70%);
+    pointer-events: none;
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  min-width: 0;
+}
+
+// Narrow card (e.g. 5 columns on laptops): stack icon above the text
+@container (max-width: 200px) {
+  .content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.icon {
+  @include flex-center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-md;
+  color: var(--tone);
+  background: var(--tone-soft);
+  border: 1px solid color-mix(in srgb, var(--tone) 25%, transparent);
+
+  svg {
+    width: 21px;
+    height: 21px;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 0.6875rem;
+  font-weight: $fw-semibold;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  @include truncate(2);
+}
+
+.value {
+  font-family: $font-display;
+  font-size: $fs-xl;
+  font-weight: $fw-extrabold;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.hint {
+  font-size: $fs-xs;
+  color: var(--text-muted);
+  @include truncate(2);
+}
+
+.cyan {
+  --tone: var(--primary);
+  --tone-soft: rgb(var(--primary-rgb) / 0.12);
+}
+
+.violet {
+  --tone: var(--secondary);
+  --tone-soft: rgb(var(--secondary-rgb) / 0.12);
+}
+
+.blue {
+  --tone: var(--accent);
+  --tone-soft: rgb(var(--accent-rgb) / 0.12);
+}
+
+.amber {
+  --tone: var(--warning);
+  --tone-soft: rgb(var(--warning-rgb) / 0.12);
+}
+
+.green {
+  --tone: var(--success);
+  --tone-soft: rgb(var(--success-rgb) / 0.12);
+}
+
+.rose {
+  --tone: var(--danger);
+  --tone-soft: rgb(var(--danger-rgb) / 0.12);
+}

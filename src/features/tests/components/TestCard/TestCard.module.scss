@@ -1,0 +1,87 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  transition:
+    border-color $duration-base,
+    transform $duration-base $ease-out;
+  @include focus-ring;
+
+  @include hover {
+    border-color: var(--border-strong);
+    transform: translateX(3px);
+  }
+}
+
+.score {
+  @include flex-center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: $radius-md;
+  font-family: $font-display;
+  font-weight: $fw-extrabold;
+  font-size: $fs-md;
+  color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, transparent);
+}
+
+.high {
+  --tone: var(--success);
+}
+
+.mid {
+  --tone: var(--warning);
+}
+
+.low {
+  --tone: var(--danger);
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-2;
+  font-size: $fs-xs;
+  color: var(--text-subtle);
+}
+
+.chips {
+  overflow: hidden;
+  max-height: 24px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-size: $fs-xs;
+  color: var(--text-subtle);
+  white-space: nowrap;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}

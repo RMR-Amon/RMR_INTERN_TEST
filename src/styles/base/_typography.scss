@@ -1,0 +1,40 @@
+@use '../abstracts' as *;
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: $font-display;
+  font-weight: $fw-bold;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+h1 {
+  font-size: $fs-2xl;
+  @include up(md) {
+    font-size: $fs-3xl;
+  }
+}
+
+h2 {
+  font-size: $fs-xl;
+}
+
+h3 {
+  font-size: $fs-lg;
+}
+
+h4 {
+  font-size: $fs-md;
+}
+
+p {
+  color: var(--text-muted);
+}
+
+strong {
+  font-weight: $fw-semibold;
+  color: var(--text);
+}

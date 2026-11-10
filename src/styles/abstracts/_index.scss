@@ -1,0 +1,5 @@
+// Single entry for tokens, mixins and functions.
+// Injected automatically into every SCSS module via vite.config.ts.
+@forward './variables';
+@forward './mixins';
+@forward './functions';

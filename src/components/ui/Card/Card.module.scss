@@ -1,0 +1,79 @@
+.card {
+  @include surface;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-image: var(--gradient-card);
+  background-color: var(--surface);
+  transition:
+    border-color $duration-base $ease-out,
+    box-shadow $duration-base $ease-out,
+    transform $duration-base $ease-out;
+}
+
+.pad-none {
+  padding: 0;
+}
+
+.pad-sm {
+  padding: $space-4;
+}
+
+.pad-md {
+  padding: $space-5;
+
+  @include up(md) {
+    padding: $space-6;
+  }
+}
+
+.interactive {
+  @include hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.glow {
+  @include gradient-border(1px, $radius-lg);
+  border-color: transparent;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-3;
+  margin-bottom: $space-5;
+}
+
+.titleWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  @include heading($fs-md);
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: var(--primary);
+  }
+}
+
+.subtitle {
+  font-size: $fs-sm;
+  color: var(--text-subtle);
+}
+
+.action {
+  flex-shrink: 0;
+}

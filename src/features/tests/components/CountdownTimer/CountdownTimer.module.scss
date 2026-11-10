@@ -1,0 +1,94 @@
+.timer {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  height: 44px;
+  padding: 0 $space-4 0 $space-2;
+  border-radius: $radius-full;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  transition:
+    border-color $duration-base,
+    background $duration-base;
+}
+
+.ring {
+  position: relative;
+  width: 30px;
+  height: 30px;
+
+  svg {
+    transform: rotate(-90deg);
+  }
+
+  circle {
+    fill: none;
+    stroke-width: 3.5;
+  }
+}
+
+.track {
+  stroke: var(--surface-3);
+}
+
+.value {
+  stroke: var(--primary);
+  stroke-linecap: round;
+  transition:
+    stroke-dashoffset 0.5s linear,
+    stroke $duration-base;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.label {
+  font-size: 0.625rem;
+  font-weight: $fw-semibold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.time {
+  font-family: $font-mono;
+  font-size: $fs-md;
+  font-weight: $fw-bold;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.warning {
+  border-color: rgb(var(--warning-rgb) / 0.5);
+
+  .value {
+    stroke: var(--warning);
+  }
+
+  .time {
+    color: var(--warning);
+  }
+}
+
+.critical {
+  border-color: rgb(var(--danger-rgb) / 0.6);
+  background: rgb(var(--danger-rgb) / 0.08);
+  animation: pulse 1s $ease-in-out infinite;
+
+  .value {
+    stroke: var(--danger);
+  }
+
+  .time {
+    color: var(--danger);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    box-shadow: 0 0 0 6px rgb(var(--danger-rgb) / 0.12);
+  }
+}

@@ -1,0 +1,82 @@
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  width: 100%;
+  padding: $space-4;
+  text-align: left;
+  border-radius: $radius-lg;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  transition:
+    border-color $duration-base,
+    background $duration-base,
+    transform $duration-base $ease-out,
+    box-shadow $duration-base;
+  @include focus-ring;
+
+  &:not(:disabled) {
+    @include hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.selected {
+  border-color: color-mix(in srgb, var(--tech) 55%, transparent);
+  background: color-mix(in srgb, var(--tech) 8%, var(--surface-2));
+  box-shadow: 0 10px 30px -18px var(--tech);
+}
+
+.locked {
+  cursor: default;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  font-weight: $fw-semibold;
+  color: var(--text);
+}
+
+.desc {
+  font-size: $fs-xs;
+  color: var(--text-subtle);
+  @include truncate;
+}
+
+.check {
+  @include flex-center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-strong);
+  color: transparent;
+  transition: all $duration-base;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.selected .check {
+  border-color: transparent;
+  background: var(--tech);
+  color: #fff;
+}
+
+.locked .check {
+  background: var(--surface-3);
+  border-color: var(--border);
+  color: var(--text-muted);
+}

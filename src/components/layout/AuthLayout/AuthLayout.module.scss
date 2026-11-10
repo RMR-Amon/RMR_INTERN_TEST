@@ -1,0 +1,169 @@
+.wrap {
+  position: relative;
+  z-index: $z-base;
+  display: grid;
+  min-height: 100dvh;
+  grid-template-columns: minmax(0, 1fr);
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
+}
+
+.hero {
+  position: relative;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: $space-10 $space-12;
+  overflow: hidden;
+  border-right: 1px solid var(--border);
+  background:
+    radial-gradient(700px 500px at 20% 20%, rgb(var(--primary-rgb) / 0.14), transparent 60%),
+    radial-gradient(600px 500px at 90% 90%, rgb(var(--secondary-rgb) / 0.18), transparent 60%),
+    var(--bg-elevated);
+
+  @include up(lg) {
+    display: flex;
+  }
+
+  // subtle code grid
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at 30% 40%, #000 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 30% 40%, #000 20%, transparent 70%);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  > * {
+    position: relative;
+  }
+}
+
+.heroBody {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  max-width: 520px;
+}
+
+.heroTitle {
+  font-family: $font-display;
+  font-size: clamp(2.2rem, 3.4vw, 3.2rem);
+  font-weight: $fw-extrabold;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--text);
+
+  em {
+    font-style: normal;
+    @include gradient-text;
+  }
+}
+
+.heroText {
+  font-size: $fs-lg;
+  line-height: 1.6;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    color: var(--text);
+    font-weight: $fw-medium;
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    padding: 4px;
+    border-radius: $radius-sm;
+    color: var(--primary);
+    background: rgb(var(--primary-rgb) / 0.12);
+  }
+}
+
+.codeCard {
+  @include surface;
+  max-width: 440px;
+  padding: $space-4 $space-5;
+  font-family: $font-mono;
+  font-size: $fs-sm;
+  line-height: 1.7;
+  color: var(--text-muted);
+
+  b {
+    color: #c084fc;
+    font-weight: $fw-medium;
+  }
+
+  i {
+    color: #67e8f9;
+    font-style: normal;
+  }
+
+  u {
+    color: #fbbf24;
+    text-decoration: none;
+  }
+}
+
+.heroFooter {
+  font-size: $fs-sm;
+  color: var(--text-subtle);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  padding: $space-5 $space-4;
+
+  @include up(sm) {
+    padding: $space-6 $space-8;
+  }
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+}
+
+.mobileLogo {
+  @include up(lg) {
+    visibility: hidden;
+  }
+}
+
+.controls {
+  display: flex;
+  gap: $space-2;
+}
+
+.formArea {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: $space-8;
+}
+
+.formCard {
+  width: 100%;
+  max-width: 440px;
+}

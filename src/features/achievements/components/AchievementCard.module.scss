@@ -1,0 +1,126 @@
+.card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4;
+  border-radius: $radius-lg;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition:
+    transform $duration-base $ease-out,
+    border-color $duration-base;
+
+  @include hover {
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+  }
+}
+
+.earned {
+  background:
+    radial-gradient(160px 100px at 0% 0%, color-mix(in srgb, var(--tier) 16%, transparent), transparent 70%),
+    var(--surface-2);
+  border-color: color-mix(in srgb, var(--tier) 35%, transparent);
+}
+
+.locked {
+  .medal {
+    filter: grayscale(1);
+    opacity: 0.45;
+  }
+
+  .title {
+    color: var(--text-muted);
+  }
+}
+
+.medal {
+  position: relative;
+  @include flex-center;
+  flex-shrink: 0;
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  color: var(--tier);
+  background: color-mix(in srgb, var(--tier) 14%, var(--surface-solid));
+  border: 1px solid color-mix(in srgb, var(--tier) 40%, transparent);
+  box-shadow: 0 8px 22px -10px var(--tier);
+}
+
+.lock {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  @include flex-center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  border: 2px solid var(--surface-2);
+  color: var(--text-muted);
+
+  svg {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.title {
+  font-weight: $fw-semibold;
+  color: var(--text);
+}
+
+.desc {
+  font-size: $fs-xs;
+  color: var(--text-subtle);
+  line-height: 1.45;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-2;
+  margin-top: 4px;
+  font-size: 0.6875rem;
+  color: var(--text-subtle);
+}
+
+.tier {
+  font-weight: $fw-bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tier);
+}
+
+.bronze {
+  --tier: var(--bronze);
+}
+
+.silver {
+  --tier: var(--silver);
+}
+
+.gold {
+  --tier: var(--gold);
+}
+
+.platinum {
+  --tier: var(--platinum);
+}
+
+.grid {
+  display: grid;
+  gap: $space-3;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}

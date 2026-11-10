@@ -1,0 +1,111 @@
+// Decorative layers: NEVER intercept pointer events
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: $z-seasonal;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity 600ms $ease-out;
+}
+
+.atmosphereLayer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition: opacity 600ms $ease-out;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.subtle {
+  opacity: 0.5;
+}
+
+// ---------------------------------------------------------------- Atmosphere
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+// Spring: blossom haze + branch in the corner
+.spring {
+  background:
+    radial-gradient(600px 380px at 0% 0%, rgb(249 168 212 / 0.1), transparent 70%),
+    radial-gradient(500px 300px at 100% 0%, rgb(251 207 232 / 0.07), transparent 70%);
+}
+
+.branch {
+  position: absolute;
+  top: 40px;
+  right: -20px;
+  width: min(420px, 55vw);
+  opacity: 0.55;
+  filter: drop-shadow(0 6px 18px rgb(244 114 182 / 0.25));
+  animation: sway 9s $ease-in-out infinite alternate;
+  transform-origin: 100% 0%;
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-1.2deg);
+  }
+  to {
+    transform: rotate(1.4deg);
+  }
+}
+
+// Summer: warm sun glow with slowly rotating rays
+.summer {
+  background:
+    radial-gradient(520px 520px at 96% -6%, rgb(253 224 71 / 0.16), transparent 65%),
+    radial-gradient(900px 500px at 50% 120%, rgb(74 222 128 / 0.05), transparent 70%);
+}
+
+.sun {
+  position: absolute;
+  top: -260px;
+  right: -260px;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg, rgb(253 230 138 / 0.09) 0deg 6deg, transparent 6deg 18deg);
+  mask: radial-gradient(circle, #000 20%, transparent 68%);
+  -webkit-mask: radial-gradient(circle, #000 20%, transparent 68%);
+  animation: rotate 120s linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Autumn: amber haze at the bottom
+.autumn {
+  background:
+    radial-gradient(900px 420px at 15% 110%, rgb(251 146 60 / 0.12), transparent 70%),
+    radial-gradient(700px 360px at 90% 105%, rgb(220 38 38 / 0.08), transparent 70%);
+}
+
+// Winter: frosty vignette edges
+.winter {
+  background:
+    radial-gradient(700px 260px at 50% -8%, rgb(224 242 254 / 0.1), transparent 70%),
+    radial-gradient(420px 420px at 0% 100%, rgb(186 230 253 / 0.08), transparent 70%),
+    radial-gradient(420px 420px at 100% 100%, rgb(186 230 253 / 0.08), transparent 70%);
+  box-shadow: inset 0 0 120px rgb(186 230 253 / 0.07);
+}
+
+@include reduced-motion {
+  .branch,
+  .sun {
+    animation: none;
+  }
+}

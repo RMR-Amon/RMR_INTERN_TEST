@@ -1,0 +1,159 @@
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  width: 100%;
+}
+
+.plot {
+  position: relative;
+  height: var(--h, 180px);
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+
+  span {
+    border-top: 1px dashed var(--border);
+  }
+}
+
+// ---------------- Bars ----------------
+.bars {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(4px, 2%, 14px);
+}
+
+.barCol {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 0;
+
+  @include hover {
+    .tooltip {
+      opacity: 1;
+      transform: translate(-50%, -6px);
+    }
+
+    .bar {
+      filter: brightness(1.2);
+    }
+  }
+}
+
+.bar {
+  width: 100%;
+  max-width: 44px;
+  min-height: 3px;
+  border-radius: 8px 8px 4px 4px;
+  background: var(--bar, var(--gradient-brand));
+  box-shadow: 0 6px 18px -8px rgb(var(--primary-rgb) / 0.6);
+  transform-origin: bottom;
+  transition: filter $duration-base;
+}
+
+.barEmpty {
+  background: var(--surface-3);
+  box-shadow: none;
+}
+
+.highlight {
+  --bar: linear-gradient(180deg, #a855f7, #6366f1);
+}
+
+.tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--top) + 6px);
+  transform: translate(-50%, 0);
+  padding: 4px 8px;
+  border-radius: $radius-xs;
+  background: var(--surface-solid);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-md);
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  color: var(--text);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity $duration-fast,
+    transform $duration-fast $ease-out;
+  z-index: 2;
+}
+
+.labels {
+  display: flex;
+  gap: clamp(4px, 2%, 14px);
+
+  span {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    font-size: 0.6875rem;
+    color: var(--text-subtle);
+    @include truncate;
+  }
+}
+
+.labelActive {
+  color: var(--text) !important;
+  font-weight: $fw-semibold;
+}
+
+// ---------------- Line ----------------
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.area {
+  fill: url(#chart-area);
+}
+
+.line {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.point {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 0 4px rgb(var(--primary-rgb) / 0.15);
+
+  @include hover {
+    .tooltip {
+      opacity: 1;
+      transform: translate(-50%, -6px);
+    }
+  }
+
+  .tooltip {
+    bottom: 14px;
+  }
+}

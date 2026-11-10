@@ -1,0 +1,119 @@
+.option {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: $space-3;
+  width: 100%;
+  padding: $space-4;
+  text-align: left;
+  border-radius: $radius-lg;
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  transition:
+    border-color $duration-base,
+    background $duration-base,
+    transform $duration-fast $ease-out,
+    box-shadow $duration-base;
+  @include focus-ring;
+
+  &:not(:disabled) {
+    @include hover {
+      border-color: rgb(var(--primary-rgb) / 0.45);
+      background: color-mix(in srgb, var(--primary) 5%, var(--surface-2));
+    }
+
+    &:active {
+      transform: scale(0.995);
+    }
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.key {
+  @include flex-center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: $radius-sm;
+  font-family: $font-mono;
+  font-size: $fs-sm;
+  font-weight: $fw-bold;
+  color: var(--text-muted);
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  transition: all $duration-base;
+}
+
+.text {
+  flex: 1;
+  padding-top: 4px;
+  font-size: $fs-base;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.code {
+  font-family: $font-mono;
+  font-size: $fs-sm;
+}
+
+.status {
+  flex-shrink: 0;
+  padding-top: 4px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.selected {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, var(--surface-2));
+  box-shadow: 0 0 0 4px rgb(var(--primary-rgb) / 0.1);
+
+  .key {
+    color: #fff;
+    background: var(--gradient-brand);
+    border-color: transparent;
+  }
+}
+
+// Review mode
+.correct {
+  border-color: rgb(var(--success-rgb) / 0.7);
+  background: rgb(var(--success-rgb) / 0.08);
+
+  .key {
+    color: #fff;
+    background: var(--success);
+    border-color: transparent;
+  }
+
+  .status {
+    color: var(--success);
+  }
+}
+
+.wrong {
+  border-color: rgb(var(--danger-rgb) / 0.7);
+  background: rgb(var(--danger-rgb) / 0.08);
+
+  .key {
+    color: #fff;
+    background: var(--danger);
+    border-color: transparent;
+  }
+
+  .status {
+    color: var(--danger);
+  }
+}
+
+.dimmed {
+  opacity: 0.6;
+}

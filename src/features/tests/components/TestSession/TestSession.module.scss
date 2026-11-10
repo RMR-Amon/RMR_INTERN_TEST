@@ -1,0 +1,158 @@
+.screen {
+  position: relative;
+  z-index: $z-base;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+
+  @include up(md) {
+    gap: $space-5;
+    padding: $space-3 $space-8;
+  }
+}
+
+.mark {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+
+  @include down(md) {
+    display: none;
+  }
+}
+
+.progressWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.progressText {
+  display: flex;
+  justify-content: space-between;
+  font-size: $fs-xs;
+  color: var(--text-subtle);
+  font-weight: $fw-medium;
+
+  b {
+    color: var(--text);
+  }
+}
+
+.hideMobile {
+  @include down(md) {
+    display: none !important;
+  }
+}
+
+.body {
+  flex: 1;
+  width: 100%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: $space-5 $space-4 $space-10;
+  display: grid;
+  gap: $space-5;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+
+  @include up(md) {
+    padding: $space-8 $space-6 $space-12;
+  }
+
+  @include up(lg) {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+}
+
+.questionCard {
+  min-height: 420px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  margin-top: $space-6;
+  padding-top: $space-5;
+  border-top: 1px solid var(--border);
+}
+
+.hint {
+  font-size: $fs-xs;
+  color: var(--text-subtle);
+  text-align: center;
+
+  @include down(md) {
+    display: none;
+  }
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  @include up(lg) {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+.sideStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-3;
+  margin-bottom: $space-4;
+
+  div {
+    padding: $space-3;
+    border-radius: $radius-md;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+  }
+
+  span {
+    display: block;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-subtle);
+  }
+
+  strong {
+    font-family: $font-display;
+    font-size: $fs-xl;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: $z-overlay;
+  @include flex-center($space-4);
+  flex-direction: column;
+  background: var(--overlay);
+  backdrop-filter: blur(6px);
+  color: var(--text);
+  font-weight: $fw-semibold;
+  text-align: center;
+  padding: $space-6;
+}

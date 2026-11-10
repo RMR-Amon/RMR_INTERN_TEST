@@ -1,0 +1,11 @@
+@use 'sass:math';
+
+// px → rem
+@function rem($px, $base: 16px) {
+  @return math.div($px, $base) * 1rem;
+}
+
+// Translucent version of a CSS custom property color (rgb triplet var)
+@function alpha($var-name, $opacity) {
+  @return rgb(var(#{$var-name}) / $opacity);
+}

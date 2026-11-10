@@ -1,0 +1,80 @@
+.screen {
+  position: relative;
+  z-index: $z-base;
+  @include flex-center;
+  min-height: 70dvh;
+  padding: $space-6 $space-4;
+}
+
+.full {
+  min-height: 100dvh;
+}
+
+.card {
+  @include surface;
+  width: 100%;
+  max-width: 560px;
+  padding: $space-8 $space-6;
+  text-align: center;
+
+  @include up(sm) {
+    padding: $space-10;
+  }
+}
+
+.code {
+  font-family: $font-display;
+  font-size: clamp(4rem, 14vw, 7rem);
+  font-weight: $fw-extrabold;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  @include gradient-text;
+}
+
+.title {
+  @include heading($fs-2xl);
+  margin-top: $space-4;
+}
+
+.text {
+  margin: $space-3 auto $space-6;
+  max-width: 420px;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  margin: $space-6 0;
+  text-align: left;
+  counter-reset: step;
+
+  li {
+    position: relative;
+    padding-left: 40px;
+    font-size: $fs-sm;
+    color: var(--text-muted);
+    counter-increment: step;
+
+    &::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: -2px;
+      @include flex-center;
+      width: 26px;
+      height: 26px;
+      border-radius: $radius-sm;
+      font-weight: $fw-bold;
+      font-size: $fs-xs;
+      color: var(--primary);
+      background: rgb(var(--primary-rgb) / 0.12);
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $space-6;
+}

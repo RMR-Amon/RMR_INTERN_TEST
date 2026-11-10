@@ -1,0 +1,214 @@
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: $z-sidebar;
+  display: flex;
+  flex-direction: column;
+  width: $sidebar-width;
+  padding: $space-5 $space-4;
+  background: var(--bg-elevated);
+  border-right: 1px solid var(--border);
+  transition: width $duration-slow $ease-out;
+
+  @include down(lg) {
+    width: min(300px, 86vw);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.collapsed {
+  @include up(lg) {
+    width: $sidebar-collapsed;
+
+    .label,
+    .groupTitle,
+    .profileText,
+    .progress {
+      display: none;
+    }
+
+    .brand,
+    .link,
+    .profile {
+      justify-content: center;
+    }
+
+    .link {
+      padding-inline: 0;
+    }
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-2;
+  padding: 0 $space-2 $space-5;
+}
+
+.collapseBtn,
+.closeBtn {
+  @include flex-center;
+  width: 32px;
+  height: 32px;
+  border-radius: $radius-sm;
+  color: var(--text-subtle);
+  @include focus-ring(0);
+
+  @include hover {
+    color: var(--text);
+    background: var(--surface-hover);
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.collapseBtn {
+  @include down(lg) {
+    display: none;
+  }
+}
+
+.closeBtn {
+  @include up(lg) {
+    display: none;
+  }
+}
+
+.nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+  overflow-y: auto;
+  margin-inline: -$space-2;
+  padding-inline: $space-2;
+  @include scrollbar;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.groupTitle {
+  padding: 0 $space-3 $space-2;
+  font-size: 0.6875rem;
+  font-weight: $fw-bold;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  height: 42px;
+  padding-inline: $space-3;
+  border-radius: $radius-md;
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+  color: var(--text-muted);
+  transition:
+    color $duration-base,
+    background $duration-base;
+  @include focus-ring(0);
+
+  @include hover {
+    color: var(--text);
+    background: var(--surface-hover);
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 19px;
+    height: 19px;
+  }
+}
+
+.active {
+  color: var(--text);
+  background: var(--gradient-soft);
+
+  svg {
+    color: var(--primary);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -$space-2;
+    top: 10px;
+    bottom: 10px;
+    width: 3px;
+    border-radius: $radius-full;
+    background: var(--gradient-brand);
+  }
+}
+
+.label {
+  @include truncate;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  padding-top: $space-4;
+  border-top: 1px solid var(--border);
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-2;
+  border-radius: $radius-md;
+  @include focus-ring(0);
+
+  @include hover {
+    background: var(--surface-hover);
+  }
+}
+
+.profileText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.profileName {
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  color: var(--text);
+  @include truncate;
+}
+
+.profileMeta {
+  font-size: $fs-xs;
+  color: var(--text-subtle);
+}
+
+.progress {
+  padding-inline: $space-2;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: $z-sidebar - 1;
+  background: var(--overlay);
+  backdrop-filter: blur(3px);
+
+  @include up(lg) {
+    display: none;
+  }
+}

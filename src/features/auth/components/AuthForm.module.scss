@@ -1,0 +1,91 @@
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  margin-bottom: $space-8;
+}
+
+.title {
+  @include heading($fs-2xl);
+}
+
+.subtitle {
+  font-size: $fs-base;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.row {
+  display: grid;
+  gap: $space-4;
+
+  @include up(sm) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.between {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -$space-1;
+}
+
+.link {
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  color: var(--primary);
+  border-radius: 4px;
+  @include focus-ring;
+
+  @include hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.submit {
+  margin-top: $space-2;
+}
+
+.alt {
+  margin-top: $space-6;
+  text-align: center;
+  font-size: $fs-sm;
+  color: var(--text-muted);
+
+  a {
+    margin-left: 6px;
+  }
+}
+
+.notice {
+  display: flex;
+  gap: $space-3;
+  padding: $space-4;
+  border-radius: $radius-md;
+  font-size: $fs-sm;
+  line-height: 1.5;
+  color: var(--text);
+  background: rgb(var(--success-rgb) / 0.1);
+  border: 1px solid rgb(var(--success-rgb) / 0.3);
+
+  svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--success);
+  }
+}
+
+.error {
+  background: rgb(var(--danger-rgb) / 0.08);
+  border-color: rgb(var(--danger-rgb) / 0.3);
+
+  svg {
+    color: var(--danger);
+  }
+}

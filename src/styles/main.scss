@@ -1,0 +1,17 @@
+// Global stylesheet entry. Component styles live next to components
+// as *.module.scss files (CSS Modules).
+@use './themes/dark' as dark;
+@use './themes/light' as light;
+@use './base/reset';
+@use './base/global';
+@use './base/typography';
+@use './layout/page';
+
+:root,
+[data-theme='dark'] {
+  @include dark.theme-dark;
+}
+
+[data-theme='light'] {
+  @include light.theme-light;
+}

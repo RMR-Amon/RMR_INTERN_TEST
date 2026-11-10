@@ -1,0 +1,112 @@
+// ---------------- Podium
+.podium {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: $space-3;
+  margin-bottom: $space-6;
+
+  @include up(md) {
+    gap: $space-5;
+  }
+}
+
+.place {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-2;
+  padding: $space-5 $space-2 $space-4;
+  border-radius: $radius-xl $radius-xl $radius-md $radius-md;
+  text-align: center;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--medal) 16%, transparent), transparent 80%),
+    var(--surface);
+  border: 1px solid color-mix(in srgb, var(--medal) 35%, transparent);
+  min-width: 0;
+}
+
+.first {
+  --medal: var(--gold);
+  padding-top: $space-8;
+  box-shadow: 0 20px 50px -24px var(--gold);
+}
+
+.second {
+  --medal: var(--silver);
+}
+
+.third {
+  --medal: var(--bronze);
+}
+
+.crown {
+  position: absolute;
+  top: -14px;
+  color: var(--gold);
+  filter: drop-shadow(0 4px 10px rgb(251 191 36 / 0.5));
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.placeNum {
+  @include flex-center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: $fs-xs;
+  font-weight: $fw-extrabold;
+  color: #0b1224;
+  background: var(--medal);
+}
+
+.placeName {
+  max-width: 100%;
+  font-weight: $fw-semibold;
+  color: var(--text);
+  font-size: $fs-sm;
+  @include truncate;
+}
+
+.placeXp {
+  font-size: $fs-xs;
+}
+
+// ---------------- Table
+.rank {
+  @include flex-center;
+  width: 32px;
+  height: 32px;
+  border-radius: $radius-sm;
+  font-weight: $fw-bold;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  background: var(--surface-2);
+}
+
+.r1 {
+  color: #0b1224;
+  background: var(--gold);
+}
+
+.r2 {
+  color: #0b1224;
+  background: var(--silver);
+}
+
+.r3 {
+  color: #fff;
+  background: var(--bronze);
+}
+
+.me td {
+  background: rgb(var(--primary-rgb) / 0.08);
+}
+
+.me td:first-child {
+  box-shadow: inset 3px 0 0 var(--primary);
+}

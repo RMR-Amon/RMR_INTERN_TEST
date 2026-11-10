@@ -1,0 +1,57 @@
+.greeting {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  padding: 6px 12px 6px 8px;
+  border-radius: $radius-full;
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--tone) 25%, transparent);
+  max-width: 100%;
+
+  span {
+    @include truncate;
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.spring {
+  --tone: #f472b6;
+}
+
+.summer {
+  --tone: #f59e0b;
+}
+
+.autumn {
+  --tone: #fb923c;
+}
+
+.winter {
+  --tone: #7dd3fc;
+}
+
+:global([data-theme='light']) {
+  .spring {
+    --tone: #db2777;
+  }
+
+  .summer {
+    --tone: #b45309;
+  }
+
+  .autumn {
+    --tone: #c2410c;
+  }
+
+  .winter {
+    --tone: #0369a1;
+  }
+}

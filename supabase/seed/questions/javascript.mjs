@@ -1,0 +1,296 @@
+import { q, t } from './_helpers.mjs'
+
+const tech = 'javascript'
+
+export default [
+  q({
+    id: 'js-01', tech, diff: 'easy',
+    q: t('typeof null nimani qaytaradi?', 'Что вернёт typeof null?', 'What does typeof null return?'),
+    o: ['"null"', '"object"', '"undefined"', '"number"'],
+    a: 1,
+    e: t(
+      'Bu JavaScript’ning tarixiy xatosi: typeof null === "object". null’ni tekshirish uchun value === null ishlating.',
+      'Это историческая ошибка JavaScript: typeof null === "object". Для проверки на null используйте value === null.',
+      'This is a historical bug in JavaScript: typeof null === "object". Use value === null to check for null.',
+    ),
+  }),
+  q({
+    id: 'js-02', tech, diff: 'easy',
+    q: t('Konsolga nima chiqadi?', 'Что будет выведено в консоль?', 'What is logged to the console?'),
+    code: "console.log(0 == '0', 0 === '0')",
+    o: ['true false', 'false false', 'true true', 'false true'],
+    a: 0,
+    e: t(
+      '== tiplarni moslashtiradi (type coercion): "0" raqamga aylanadi. === esa tip va qiymatni o‘zgartirmasdan solishtiradi.',
+      '== выполняет приведение типов: "0" превращается в число. === сравнивает без приведения — и тип, и значение.',
+      '== performs type coercion: "0" is converted to a number. === compares type and value without coercion.',
+    ),
+  }),
+  q({
+    id: 'js-03', tech, diff: 'medium',
+    q: t('Konsolga nima chiqadi?', 'Что будет выведено в консоль?', 'What is logged to the console?'),
+    code: 'console.log(a)\nvar a = 5',
+    o: ['5', 'ReferenceError', 'undefined', 'null'],
+    a: 2,
+    e: t(
+      'var e’lonlari hoisting bo‘ladi va undefined bilan initsializatsiya qilinadi; qiymat (5) esa faqat o‘sha qatorda beriladi.',
+      'Объявления var поднимаются (hoisting) и инициализируются undefined; присваивание 5 происходит только на своей строке.',
+      'var declarations are hoisted and initialized with undefined; the assignment of 5 only happens on its own line.',
+    ),
+  }),
+  q({
+    id: 'js-04', tech, diff: 'medium',
+    q: t('Bu kod bajarilganda nima bo‘ladi?', 'Что произойдёт при выполнении кода?', 'What happens when this code runs?'),
+    code: 'console.log(b)\nlet b = 1',
+    o: [
+      t('undefined chiqadi', 'Выведется undefined', 'undefined is logged'),
+      t('1 chiqadi', 'Выведется 1', '1 is logged'),
+      t('null chiqadi', 'Выведется null', 'null is logged'),
+      t('ReferenceError — b “temporal dead zone”da', 'ReferenceError — b находится во «временной мёртвой зоне»', 'ReferenceError — b is in the temporal dead zone'),
+    ],
+    a: 3,
+    e: t(
+      'let va const ham hoisting bo‘ladi, lekin e’lon qatorigacha initsializatsiya qilinmaydi (TDZ). Ularga oldindan murojaat ReferenceError beradi.',
+      'let и const тоже поднимаются, но не инициализируются до строки объявления (TDZ). Обращение к ним раньше вызывает ReferenceError.',
+      'let and const are hoisted too but not initialized until their declaration (TDZ). Accessing them earlier throws a ReferenceError.',
+    ),
+  }),
+  q({
+    id: 'js-05', tech, diff: 'medium',
+    q: t('Closure (yopilish) nima?', 'Что такое замыкание (closure)?', 'What is a closure?'),
+    code: 'function counter() {\n  let n = 0\n  return () => ++n\n}\nconst inc = counter()\ninc(); inc() // 2',
+    o: [
+      t('Funksiyani darhol chaqirish usuli', 'Способ немедленно вызвать функцию', 'A way to call a function immediately'),
+      t('Funksiyaning o‘zi yaratilgan leksik muhitdagi o‘zgaruvchilarga, tashqi funksiya tugaganidan keyin ham kira olishi', 'Способность функции обращаться к переменным лексического окружения, где она создана, даже после завершения внешней функции', 'A function\'s ability to access variables from the lexical scope where it was created, even after the outer function has returned'),
+      t('Obyektni muzlatish usuli', 'Способ заморозить объект', 'A way to freeze an object'),
+      t('Brauzer oynasini yopish hodisasi', 'Событие закрытия окна браузера', 'The browser window close event'),
+    ],
+    a: 1,
+    e: t(
+      'Misolda qaytarilgan arrow funksiya n o‘zgaruvchisini “eslab qoladi”. Closure’lar xususiy holat, fabrikalar, debounce va React hook’larida keng ishlatiladi.',
+      'В примере возвращаемая стрелочная функция «помнит» переменную n. Замыкания используются для приватного состояния, фабрик, debounce и в хуках React.',
+      'In the example the returned arrow function "remembers" n. Closures power private state, factories, debounce and React hooks.',
+    ),
+  }),
+  q({
+    id: 'js-06', tech, diff: 'hard',
+    q: t('Konsolga qanday tartibda chiqadi?', 'В каком порядке будет вывод в консоль?', 'In what order are the values logged?'),
+    code: "console.log(1)\nsetTimeout(() => console.log(2), 0)\nPromise.resolve().then(() => console.log(3))\nconsole.log(4)",
+    o: ['1 2 3 4', '1 4 2 3', '1 4 3 2', '1 3 4 2'],
+    a: 2,
+    e: t(
+      'Avval sinxron kod (1, 4), keyin microtask navbati (Promise → 3), so‘ng macrotask (setTimeout → 2). Microtask’lar har doim keyingi macrotask’dan oldin bajariladi.',
+      'Сначала синхронный код (1, 4), затем очередь микрозадач (Promise → 3), потом макрозадача (setTimeout → 2). Микрозадачи всегда выполняются до следующей макрозадачи.',
+      'Synchronous code first (1, 4), then the microtask queue (Promise → 3), then the macrotask (setTimeout → 2). Microtasks always run before the next macrotask.',
+    ),
+  }),
+  q({
+    id: 'js-07', tech, diff: 'easy',
+    q: t(
+      'Massivning har bir elementini o‘zgartirib, yangi massiv qaytaradigan metod qaysi?',
+      'Какой метод возвращает новый массив, преобразовав каждый элемент?',
+      'Which method returns a new array with every element transformed?',
+    ),
+    o: ['map()', 'forEach()', 'filter()', 'find()'],
+    a: 0,
+    e: t(
+      'map() har bir element uchun callback natijasidan iborat yangi massiv qaytaradi. forEach() hech narsa qaytarmaydi (undefined), filter() elementlarni tanlaydi.',
+      'map() возвращает новый массив из результатов callback для каждого элемента. forEach() ничего не возвращает (undefined), filter() отбирает элементы.',
+      'map() returns a new array of callback results. forEach() returns undefined, and filter() selects elements.',
+    ),
+  }),
+  q({
+    id: 'js-08', tech, diff: 'easy',
+    q: t('Natija nima?', 'Каков результат?', 'What is the result?'),
+    code: '[1, 2, 3].reduce((acc, n) => acc + n, 0)',
+    o: ['"123"', '[1, 2, 3]', '0', '6'],
+    a: 3,
+    e: t(
+      'reduce akkumulyatorni 0 dan boshlaydi va har bir elementni qo‘shadi: 0+1+2+3 = 6.',
+      'reduce начинает аккумулятор с 0 и прибавляет каждый элемент: 0+1+2+3 = 6.',
+      'reduce starts the accumulator at 0 and adds each element: 0+1+2+3 = 6.',
+    ),
+  }),
+  q({
+    id: 'js-09', tech, diff: 'medium',
+    q: t('Konsolga nima chiqadi?', 'Что будет выведено?', 'What is logged?'),
+    code: "const user = {\n  name: 'Ali',\n  regular() { return this.name },\n  arrow: () => this?.name,\n}\nconsole.log(user.regular(), user.arrow())",
+    o: ["'Ali' 'Ali'", "'Ali' undefined", "undefined 'Ali'", 'TypeError'],
+    a: 1,
+    e: t(
+      'Arrow funksiyalarning o‘z this’i yo‘q — u tashqi leksik muhitdan olinadi (modulda undefined). Oddiy metodda this chaqiruvchi obyektga (user) teng.',
+      'У стрелочных функций нет своего this — он берётся из внешнего лексического окружения (в модуле это undefined). В обычном методе this — объект вызова (user).',
+      'Arrow functions have no own this — it is taken from the enclosing lexical scope (undefined in a module). In a regular method this is the calling object (user).',
+    ),
+  }),
+  q({
+    id: 'js-10', tech, diff: 'hard',
+    q: t('Konsolga nima chiqadi?', 'Что будет выведено?', 'What is logged?'),
+    code: 'for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0)\n}',
+    o: ['0 1 2', 'undefined ×3', '3 3 3', '2 2 2'],
+    a: 2,
+    e: t(
+      'var funksiya darajasida bitta o‘zgaruvchi yaratadi; callback’lar ishga tushganda sikl tugagan va i = 3. let ishlatilsa, har iteratsiya uchun alohida binding bo‘lib, 0 1 2 chiqadi.',
+      'var создаёт одну переменную на функцию; когда колбэки срабатывают, цикл уже завершён и i = 3. С let каждая итерация получает свою привязку, и выведется 0 1 2.',
+      'var creates a single function-scoped variable; when the callbacks run, the loop has finished and i = 3. With let, each iteration gets its own binding and 0 1 2 is logged.',
+    ),
+  }),
+  q({
+    id: 'js-11', tech, diff: 'medium',
+    q: t('a.inner.x ning qiymati nima bo‘ladi?', 'Чему будет равно a.inner.x?', 'What will a.inner.x be?'),
+    code: 'const a = { inner: { x: 1 } }\nconst b = { ...a }\nb.inner.x = 2',
+    o: ['2', '1', 'undefined', 'TypeError'],
+    a: 0,
+    e: t(
+      'Spread operator sayoz (shallow) nusxa yaratadi: b.inner va a.inner bitta obyektga ishora qiladi. Chuqur nusxa uchun structuredClone() ishlating.',
+      'Spread создаёт поверхностную копию: b.inner и a.inner ссылаются на один объект. Для глубокой копии используйте structuredClone().',
+      'Spread makes a shallow copy: b.inner and a.inner point to the same object. Use structuredClone() for a deep copy.',
+    ),
+  }),
+  q({
+    id: 'js-12', tech, diff: 'easy',
+    q: t(
+      'Qiymat massiv ekanligini tekshirishning ishonchli usuli qaysi?',
+      'Какой надёжный способ проверить, что значение — массив?',
+      'What is the reliable way to check that a value is an array?',
+    ),
+    o: ["typeof value === 'array'", 'value instanceof Object', "value.length !== undefined", 'Array.isArray(value)'],
+    a: 3,
+    e: t(
+      'typeof [] — "object", length esa satrlarda ham bor. Array.isArray() turli iframe/realm’lardagi massivlar uchun ham to‘g‘ri ishlaydi.',
+      'typeof [] — "object", а length есть и у строк. Array.isArray() корректно работает даже для массивов из других iframe/realm.',
+      'typeof [] is "object" and strings also have length. Array.isArray() works correctly even for arrays from other iframes/realms.',
+    ),
+  }),
+  q({
+    id: 'js-13', tech, diff: 'medium',
+    q: t(
+      'Qaysi metod barcha promise’lar yakunlanishini kutadi va ulardan biri reject bo‘lsa ham to‘xtamaydi?',
+      'Какой метод ждёт завершения всех промисов и не прерывается, если один из них отклонён?',
+      'Which method waits for all promises to settle and does not short-circuit when one rejects?',
+    ),
+    o: ['Promise.all()', 'Promise.allSettled()', 'Promise.race()', 'Promise.any()'],
+    a: 1,
+    e: t(
+      'allSettled har bir promise uchun {status, value | reason} qaytaradi. all birinchi reject’dayoq reject bo‘ladi; race birinchi yakunlanganni, any birinchi muvaffaqiyatlisini qaytaradi.',
+      'allSettled возвращает {status, value | reason} для каждого промиса. all отклоняется при первом reject; race — первый завершённый, any — первый успешный.',
+      'allSettled resolves with {status, value | reason} for each promise. all rejects on the first rejection; race settles with the first settled, any with the first fulfilled.',
+    ),
+  }),
+  q({
+    id: 'js-14', tech, diff: 'medium',
+    q: t('a va b qiymatlari qanday?', 'Каковы значения a и b?', 'What are the values of a and b?'),
+    code: 'const { a = 10, b = 20 } = { a: undefined, b: null }',
+    o: ['a = 10, b = 20', 'a = undefined, b = null', 'a = 10, b = null', 'a = undefined, b = 20'],
+    a: 2,
+    e: t(
+      'Destructuring’dagi default qiymat faqat qiymat aynan undefined bo‘lganda qo‘llanadi. null — haqiqiy qiymat, shuning uchun b = null.',
+      'Значение по умолчанию при деструктуризации применяется только если значение строго undefined. null — это значение, поэтому b = null.',
+      'Destructuring defaults only apply when the value is strictly undefined. null is a real value, so b = null.',
+    ),
+  }),
+  q({
+    id: 'js-15', tech, diff: 'medium',
+    q: t('Natija nima?', 'Каков результат?', 'What is the result?'),
+    code: '0.1 + 0.2 === 0.3',
+    o: [
+      t('false — IEEE 754 suzuvchi nuqta xatoligi tufayli', 'false — из‑за погрешности чисел с плавающей точкой IEEE 754', 'false — due to IEEE 754 floating-point precision'),
+      t('true', 'true', 'true'),
+      t('TypeError', 'TypeError', 'TypeError'),
+      t('NaN', 'NaN', 'NaN'),
+    ],
+    a: 0,
+    e: t(
+      '0.1 + 0.2 = 0.30000000000000004. Kasr sonlarni solishtirishda Math.abs(a - b) < Number.EPSILON dan foydalaning yoki butun sonlarda (tiyinlarda) hisoblang.',
+      '0.1 + 0.2 = 0.30000000000000004. Для сравнения дробных используйте Math.abs(a - b) < Number.EPSILON или считайте в целых (копейках).',
+      '0.1 + 0.2 = 0.30000000000000004. Compare floats with Math.abs(a - b) < Number.EPSILON or work in integers (cents).',
+    ),
+  }),
+  q({
+    id: 'js-16', tech, diff: 'medium',
+    q: t('Event delegation nima?', 'Что такое делегирование событий?', 'What is event delegation?'),
+    code: "list.addEventListener('click', (e) => {\n  const item = e.target.closest('li')\n  if (item) select(item.dataset.id)\n})",
+    o: [
+      t('Hodisani boshqa funksiyaga nusxalash', 'Копирование события в другую функцию', 'Copying an event to another function'),
+      t('Hodisani to‘xtatish uchun preventDefault chaqirish', 'Вызов preventDefault для остановки события', 'Calling preventDefault to stop the event'),
+      t('Har bir elementga alohida listener qo‘shish', 'Добавление отдельного обработчика на каждый элемент', 'Adding a separate listener to every element'),
+      t('Bubbling’dan foydalanib, ko‘plab bolalar hodisalarini ota elementdagi bitta listener orqali boshqarish', 'Обработка событий многих потомков одним обработчиком на родителе благодаря всплытию', 'Handling events of many children with one listener on a parent, using bubbling'),
+    ],
+    a: 3,
+    e: t(
+      'Delegation xotirani tejaydi va dinamik qo‘shilgan elementlar uchun ham avtomatik ishlaydi. e.target.closest() bilan kerakli elementni topamiz.',
+      'Делегирование экономит память и автоматически работает для динамически добавленных элементов. e.target.closest() находит нужный элемент.',
+      'Delegation saves memory and automatically works for dynamically added elements. e.target.closest() finds the relevant element.',
+    ),
+  }),
+  q({
+    id: 'js-17', tech, diff: 'medium',
+    q: t(
+      'Debounce funksiyasi nima qiladi?',
+      'Что делает функция debounce?',
+      'What does a debounce function do?',
+    ),
+    o: [
+      t('Funksiyani har N ms da bir martadan ko‘p chaqirmaydi', 'Вызывает функцию не чаще раза в N мс', 'Calls the function at most once every N ms'),
+      t('Chaqiruvlar to‘xtaganidan N ms o‘tgandan keyingina funksiyani bir marta chaqiradi', 'Вызывает функцию один раз только спустя N мс после прекращения вызовов', 'Calls the function once, only after calls have stopped for N ms'),
+      t('Funksiya natijasini keshlaydi', 'Кэширует результат функции', 'Caches the function result'),
+      t('Funksiyani parallel oqimda bajaradi', 'Выполняет функцию в параллельном потоке', 'Runs the function in a parallel thread'),
+    ],
+    a: 1,
+    e: t(
+      'Debounce qidiruv maydoni, resize kabi tez-tez hodisalar uchun ishlatiladi. Birinchi variant — throttle tavsifi, uchinchisi — memoization.',
+      'Debounce используют для поиска, resize и других частых событий. Первый вариант описывает throttle, третий — мемоизацию.',
+      'Debounce is used for search inputs, resize and other noisy events. The first option describes throttle and the third describes memoization.',
+    ),
+  }),
+  q({
+    id: 'js-18', tech, diff: 'hard',
+    q: t('Konsolga nima chiqadi?', 'Что будет выведено?', 'What is logged?'),
+    code: "async function load() {\n  try {\n    await Promise.reject(new Error('x'))\n    return 'ok'\n  } catch {\n    return 'caught'\n  } finally {\n    console.log('done')\n  }\n}\nload().then(console.log)",
+    o: ["'ok' 'done'", 'Unhandled rejection: x', "'done' 'caught'", "'caught' 'done'"],
+    a: 2,
+    e: t(
+      'Rejected promise’ni await qilish catch blokiga tushiradi. finally return’dan oldin bajariladi, shuning uchun avval "done", keyin then() orqali "caught" chiqadi.',
+      'await отклонённого промиса бросает исключение в catch. finally выполняется до фактического возврата, поэтому сначала "done", затем через then() — "caught".',
+      'Awaiting a rejected promise throws into catch. finally runs before the function actually returns, so "done" is logged first, then "caught" via then().',
+    ),
+  }),
+  q({
+    id: 'js-19', tech, diff: 'easy',
+    q: t('Bu kod ishlaydimi?', 'Сработает ли этот код?', 'Does this code work?'),
+    code: "const user = { name: 'Ali' }\nuser.name = 'Vali'\nconsole.log(user.name)",
+    o: [
+      t("Ha — 'Vali' chiqadi: const faqat qayta tayinlashni taqiqlaydi, obyekt o‘zgarishini emas", "Да — выведется 'Vali': const запрещает переприсваивание, а не изменение объекта", "Yes — logs 'Vali': const prevents reassignment, not mutation of the object"),
+      t('TypeError: const obyektni o‘zgartirib bo‘lmaydi', 'TypeError: const-объект нельзя менять', 'TypeError: a const object cannot be changed'),
+      t("'Ali' chiqadi", "Выведется 'Ali'", "Logs 'Ali'"),
+      t('SyntaxError', 'SyntaxError', 'SyntaxError'),
+    ],
+    a: 0,
+    e: t(
+      'const o‘zgaruvchi boshqa qiymatga ishora qila olmaydi (user = {} — xato), lekin obyekt ichini o‘zgartirish mumkin. To‘liq muzlatish uchun Object.freeze().',
+      'const-переменную нельзя переназначить (user = {} — ошибка), но содержимое объекта менять можно. Для заморозки — Object.freeze().',
+      'A const binding cannot point to a new value (user = {} throws), but the object\'s contents can change. Use Object.freeze() to prevent that.',
+    ),
+  }),
+  q({
+    id: 'js-20', tech, diff: 'hard',
+    q: t(
+      'Qaysi usul Date obyektlarini saqlagan holda chuqur nusxa (deep copy) yaratadi?',
+      'Какой способ создаёт глубокую копию, сохраняя объекты Date?',
+      'Which approach creates a deep copy while preserving Date objects?',
+    ),
+    code: "const original = { created: new Date(), tags: ['a'] }",
+    o: [
+      'JSON.parse(JSON.stringify(original))',
+      'Object.assign({}, original)',
+      '{ ...original }',
+      'structuredClone(original)',
+    ],
+    a: 3,
+    e: t(
+      'structuredClone Date, Map, Set va siklik havolalarni to‘g‘ri nusxalaydi. JSON usuli Date’ni satrga aylantiradi, spread va Object.assign esa sayoz nusxa beradi.',
+      'structuredClone корректно копирует Date, Map, Set и циклические ссылки. JSON превращает Date в строку, а spread и Object.assign делают поверхностную копию.',
+      'structuredClone correctly copies Date, Map, Set and circular references. JSON turns Date into a string; spread and Object.assign are shallow.',
+    ),
+  }),
+]

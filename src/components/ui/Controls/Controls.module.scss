@@ -1,0 +1,148 @@
+// ---------------- Switch ----------------
+.switchRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  cursor: pointer;
+}
+
+.switchText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.switchLabel {
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+  color: var(--text);
+}
+
+.switchHint {
+  font-size: $fs-xs;
+  color: var(--text-subtle);
+}
+
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 44px;
+  height: 26px;
+  border-radius: $radius-full;
+  background: var(--surface-3);
+  border: 1px solid var(--border-strong);
+  transition: background $duration-base $ease-out;
+  @include focus-ring;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.3);
+    transition: transform $duration-base $ease-out;
+  }
+
+  &[aria-checked='true'] {
+    background: var(--gradient-brand);
+    border-color: transparent;
+
+    &::after {
+      transform: translateX(18px);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// ---------------- Segmented control ----------------
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  border-radius: $radius-md;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  max-width: 100%;
+}
+
+.segment {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  height: 34px;
+  padding-inline: $space-3;
+  border-radius: $radius-sm;
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+  color: var(--text-muted);
+  transition: color $duration-base;
+  @include focus-ring(0);
+
+  @include hover {
+    color: var(--text);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.segmentActive {
+  color: var(--text);
+}
+
+.segmentPill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: var(--surface-solid);
+  box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--border-strong);
+}
+
+.segmentLabel {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+.full {
+  display: flex;
+  width: 100%;
+
+  .segment {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+// ---------------- Pagination ----------------
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  padding-top: $space-4;
+  font-size: $fs-sm;
+  color: var(--text-muted);
+}
+
+.pages {
+  display: flex;
+  gap: $space-2;
+}

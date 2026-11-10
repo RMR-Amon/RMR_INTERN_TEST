@@ -1,0 +1,147 @@
+.button {
+  --btn-h: 42px;
+  --btn-px: #{$space-5};
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  height: var(--btn-h);
+  padding-inline: var(--btn-px);
+  border-radius: $radius-md;
+  border: 1px solid transparent;
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    transform $duration-fast $ease-out,
+    background-color $duration-base $ease-out,
+    border-color $duration-base $ease-out,
+    box-shadow $duration-base $ease-out,
+    color $duration-base $ease-out,
+    opacity $duration-base;
+  @include focus-ring;
+
+  &:active:not(:disabled) {
+    transform: translateY(1px) scale(0.985);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 17px;
+    height: 17px;
+  }
+}
+
+.sm {
+  --btn-h: 34px;
+  --btn-px: #{$space-3};
+  border-radius: $radius-sm;
+  font-size: $fs-xs;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.lg {
+  --btn-h: 50px;
+  --btn-px: #{$space-6};
+  font-size: $fs-base;
+  border-radius: $radius-lg;
+}
+
+.icon {
+  --btn-px: 0;
+  width: var(--btn-h);
+}
+
+.full {
+  width: 100%;
+}
+
+.primary {
+  color: #fff;
+  background: var(--gradient-brand);
+  background-size: 160% 160%;
+  background-position: 0% 50%;
+  box-shadow:
+    0 8px 24px -10px rgb(var(--primary-rgb) / 0.6),
+    inset 0 1px 0 rgb(255 255 255 / 0.18);
+
+  @include hover {
+    background-position: 100% 50%;
+    box-shadow:
+      0 12px 32px -10px rgb(var(--secondary-rgb) / 0.6),
+      inset 0 1px 0 rgb(255 255 255 / 0.2);
+  }
+}
+
+.secondary {
+  color: var(--text);
+  background: var(--surface-2);
+  border-color: var(--border);
+
+  @include hover {
+    background: var(--surface-3);
+    border-color: var(--border-strong);
+  }
+}
+
+.outline {
+  color: var(--primary);
+  border-color: rgb(var(--primary-rgb) / 0.4);
+  background: rgb(var(--primary-rgb) / 0.06);
+
+  @include hover {
+    background: rgb(var(--primary-rgb) / 0.12);
+    border-color: rgb(var(--primary-rgb) / 0.7);
+  }
+}
+
+.ghost {
+  color: var(--text-muted);
+
+  @include hover {
+    color: var(--text);
+    background: var(--surface-hover);
+  }
+}
+
+.danger {
+  color: #fff;
+  background: var(--danger);
+  box-shadow: 0 8px 24px -12px rgb(var(--danger-rgb) / 0.7);
+
+  @include hover {
+    filter: brightness(1.08);
+  }
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 0.7s linear infinite;
+}
+
+.loading .content {
+  opacity: 0.85;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

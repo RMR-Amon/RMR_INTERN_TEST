@@ -1,0 +1,174 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+
+  @include up(md) {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  min-width: 0;
+  flex: 1;
+}
+
+.name {
+  @include heading($fs-2xl);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-2;
+  font-size: $fs-sm;
+  color: var(--text-subtle);
+}
+
+.levelBox {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  width: 100%;
+
+  @include up(md) {
+    width: 320px;
+  }
+}
+
+.levelText {
+  display: flex;
+  justify-content: space-between;
+  font-size: $fs-xs;
+  color: var(--text-subtle);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.avatarRow {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+}
+
+.avatarActions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+  }
+
+  p {
+    font-size: $fs-xs;
+    color: var(--text-subtle);
+  }
+}
+
+.fileInput {
+  @include visually-hidden;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.statsGrid {
+  display: grid;
+  gap: $space-3;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.best {
+  display: grid;
+  gap: $space-3;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.bestItem {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3;
+  border-radius: $radius-md;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+
+  div {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  span {
+    font-size: $fs-xs;
+    color: var(--text-subtle);
+    @include truncate;
+  }
+
+  strong {
+    font-family: $font-display;
+    font-size: $fs-lg;
+  }
+}
+
+// ---- settings
+.settingsList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.settingRow {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+
+  @include up(md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.settingText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  strong {
+    font-size: $fs-sm;
+  }
+
+  span {
+    font-size: $fs-xs;
+    color: var(--text-subtle);
+  }
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+}
+
+.notice {
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  font-size: $fs-sm;
+  color: var(--text-muted);
+  background: rgb(var(--warning-rgb) / 0.08);
+  border: 1px solid rgb(var(--warning-rgb) / 0.25);
+}

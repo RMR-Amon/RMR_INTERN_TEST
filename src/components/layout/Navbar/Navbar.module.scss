@@ -1,0 +1,111 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: $z-sticky;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  height: $navbar-height;
+  padding-inline: $space-4;
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border-bottom: 1px solid var(--border);
+
+  @include up(md) {
+    padding-inline: $space-6;
+  }
+
+  @include up(lg) {
+    padding-inline: $space-8;
+  }
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  min-width: 0;
+}
+
+.menuBtn {
+  @include flex-center;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-md;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  @include focus-ring;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @include up(lg) {
+    display: none;
+  }
+}
+
+.mobileLogo {
+  @include up(lg) {
+    display: none;
+  }
+
+  @include down(sm) {
+    span span {
+      display: none;
+    }
+  }
+}
+
+.season {
+  @include down(lg) {
+    display: none;
+  }
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+
+  @include up(md) {
+    gap: $space-3;
+  }
+}
+
+.xp {
+  display: none;
+  align-items: center;
+  height: 38px;
+  padding-inline: $space-3;
+  border-radius: $radius-md;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: $fs-sm;
+
+  @include up(md) {
+    display: inline-flex;
+  }
+}
+
+.hideSm {
+  @include down(sm) {
+    display: none;
+  }
+}
+
+.avatarLink {
+  display: flex;
+  border-radius: 30%;
+  @include focus-ring;
+}
+
+.startBtn {
+  @include down(xl) {
+    display: none !important;
+  }
+}

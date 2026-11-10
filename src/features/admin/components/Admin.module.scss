@@ -1,0 +1,223 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: $space-3;
+  margin-bottom: $space-5;
+
+  > :first-child {
+    flex: 1 1 260px;
+  }
+}
+
+.filter {
+  min-width: 160px;
+}
+
+.grid2 {
+  display: grid;
+  gap: $space-4;
+
+  @include up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.grid3 {
+  display: grid;
+  gap: $space-4;
+
+  @include up(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.statsGrid {
+  display: grid;
+  gap: $space-4;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.rowActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $space-1;
+}
+
+.questionCell {
+  max-width: 460px;
+  color: var(--text) !important;
+  @include truncate(2);
+}
+
+.mono {
+  font-family: $font-mono;
+  font-size: $fs-xs;
+  color: var(--text-subtle) !important;
+}
+
+.langTabs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: $space-3;
+  padding: $space-3;
+  border-radius: $radius-md;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.langTabsLabel {
+  font-size: $fs-sm;
+  font-weight: $fw-medium;
+}
+
+.missing {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: var(--danger);
+  vertical-align: middle;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.optionRow {
+  display: flex;
+  align-items: flex-end;
+  gap: $space-3;
+
+  > :last-child {
+    flex: 1;
+  }
+}
+
+.correctPick {
+  @include flex-center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-md;
+  font-family: $font-mono;
+  font-weight: $fw-bold;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  @include focus-ring;
+
+  &[aria-checked='true'] {
+    color: #fff;
+    background: var(--success);
+    border-color: transparent;
+  }
+}
+
+.sectionTitle {
+  margin-top: $space-2;
+  font-size: $fs-sm;
+  font-weight: $fw-semibold;
+  color: var(--text);
+}
+
+.colorInput {
+  width: 56px;
+  height: 44px;
+  padding: 4px;
+  border-radius: $radius-md;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+
+.inline {
+  display: flex;
+  align-items: flex-end;
+  gap: $space-3;
+
+  > :first-child {
+    flex: 1;
+  }
+}
+
+.danger {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+}
+
+.achRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  padding: $space-3;
+  border-radius: $radius-md;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-size: $fs-sm;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.xpPositive {
+  color: var(--success) !important;
+  font-weight: $fw-semibold;
+}
+
+.xpNegative {
+  color: var(--danger) !important;
+  font-weight: $fw-semibold;
+}
+
+.iconPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+
+  button {
+    @include flex-center;
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-sm;
+    color: var(--text-muted);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    @include focus-ring;
+
+    &[aria-pressed='true'] {
+      color: var(--primary);
+      border-color: var(--primary);
+      background: rgb(var(--primary-rgb) / 0.1);
+    }
+  }
+}
+
+.settingsGroup {
+  display: grid;
+  gap: $space-4;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+.stickyActions {
+  position: sticky;
+  bottom: $space-4;
+  display: flex;
+  justify-content: flex-end;
+}

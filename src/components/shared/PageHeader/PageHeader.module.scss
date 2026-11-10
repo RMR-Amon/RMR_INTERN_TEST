@@ -1,0 +1,53 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  @include up(md) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-size: $fs-xs;
+  font-weight: $fw-semibold;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.title {
+  @include heading($fs-2xl);
+
+  @include up(md) {
+    font-size: $fs-3xl;
+  }
+}
+
+.subtitle {
+  max-width: 640px;
+  font-size: $fs-base;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+}

@@ -1,0 +1,28 @@
+@use '../abstracts' as *;
+
+// Shared page-level layout helpers used by route pages
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+  width: 100%;
+  max-width: $content-max;
+  margin-inline: auto;
+}
+
+.page-grid {
+  display: grid;
+  gap: $space-5;
+  grid-template-columns: minmax(0, 1fr);
+
+  @include up(xl) {
+    grid-template-columns: minmax(0, 1fr) 360px;
+  }
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+  min-width: 0;
+}

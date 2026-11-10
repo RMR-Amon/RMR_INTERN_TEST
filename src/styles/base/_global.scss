@@ -1,0 +1,50 @@
+@use '../abstracts' as *;
+
+body {
+  font-family: $font-sans;
+  font-size: $fs-base;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(1100px 600px at 8% -10%, var(--bg-glow-1), transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, var(--bg-glow-2), transparent 60%);
+  background-attachment: fixed;
+  transition:
+    background-color $duration-slow $ease-out,
+    color $duration-slow $ease-out;
+}
+
+::selection {
+  background: rgb(var(--primary-rgb) / 0.3);
+  color: var(--text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+code,
+kbd,
+pre {
+  font-family: $font-mono;
+}
+
+html {
+  @include scrollbar;
+}
+
+.sr-only {
+  @include visually-hidden;
+}
+
+@include reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

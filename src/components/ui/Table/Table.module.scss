@@ -1,0 +1,75 @@
+.wrap {
+  width: 100%;
+  overflow-x: auto;
+  @include scrollbar;
+}
+
+.table {
+  width: 100%;
+  min-width: 640px;
+  font-size: $fs-sm;
+
+  th {
+    padding: $space-3 $space-4;
+    text-align: left;
+    font-size: $fs-xs;
+    font-weight: $fw-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-subtle);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: $space-3 $space-4;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    vertical-align: middle;
+  }
+
+  tbody tr {
+    transition: background $duration-fast;
+
+    &:last-child td {
+      border-bottom: none;
+    }
+
+    @include hover {
+      background: var(--surface-hover);
+    }
+  }
+}
+
+.right {
+  text-align: right !important;
+}
+
+.strong {
+  color: var(--text) !important;
+  font-weight: $fw-semibold;
+}
+
+.cellUser {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  min-width: 0;
+}
+
+.userText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  span:first-child {
+    color: var(--text);
+    font-weight: $fw-semibold;
+    @include truncate;
+  }
+
+  span:last-child {
+    font-size: $fs-xs;
+    color: var(--text-subtle);
+  }
+}
