@@ -466,16 +466,6 @@ export const ru: Dictionary = {
     forbiddenTitle: 'Доступ запрещён',
     forbiddenText: 'Этот раздел доступен только администраторам.',
   },
-  setup: {
-    title: 'Подключите Supabase',
-    text: 'Приложению нужен проект Supabase для авторизации и данных. Добавьте ключи проекта, чтобы продолжить.',
-    steps: [
-      'Создайте проект на supabase.com',
-      'Выполните SQL-файлы из supabase/migrations и supabase/seed.sql в SQL-редакторе',
-      'Скопируйте .env.example в .env.local и заполните VITE_SUPABASE_URL и VITE_SUPABASE_ANON_KEY',
-      'Перезапустите dev-сервер: npm run dev',
-    ],
-  },
   theme: {
     toggle: 'Сменить тему',
   },

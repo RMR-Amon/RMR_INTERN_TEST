@@ -2,7 +2,7 @@ import type { Session } from '@supabase/supabase-js'
 import { create } from 'zustand'
 import { authApi } from '@/features/auth/api/authApi'
 import { profileApi } from '@/features/profile/api/profileApi'
-import { isSupabaseConfigured, supabase } from '@/services/supabase/client'
+import { supabase } from '@/services/supabase/client'
 import type { Profile } from '@/types'
 import { getDictionary } from '@/locales'
 import { usePreferencesStore } from './preferencesStore'
@@ -47,10 +47,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   initialized: false,
 
   init: () => {
-    if (get().initialized || !isSupabaseConfigured) {
-      if (!isSupabaseConfigured) set({ status: 'guest', initialized: true })
-      return () => undefined
-    }
+    if (get().initialized) return () => undefined
     set({ initialized: true })
 
     const apply = (session: Session | null) => get().hydrate(session)

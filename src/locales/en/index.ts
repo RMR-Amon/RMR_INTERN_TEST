@@ -467,16 +467,6 @@ export const en = {
     forbiddenTitle: 'Access denied',
     forbiddenText: 'This section is available to administrators only.',
   },
-  setup: {
-    title: 'Connect Supabase',
-    text: 'The app needs a Supabase project for authentication and data. Add your project keys to continue.',
-    steps: [
-      'Create a project at supabase.com',
-      'Run the SQL files from supabase/migrations and supabase/seed.sql in the SQL editor',
-      'Copy .env.example to .env.local and fill VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY',
-      'Restart the dev server: npm run dev',
-    ],
-  },
   theme: {
     toggle: 'Toggle theme',
   },

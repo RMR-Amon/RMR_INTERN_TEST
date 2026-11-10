@@ -466,16 +466,6 @@ export const uz: Dictionary = {
     forbiddenTitle: 'Kirish taqiqlangan',
     forbiddenText: 'Bu bo‘lim faqat administratorlar uchun.',
   },
-  setup: {
-    title: 'Supabase’ni ulang',
-    text: 'Ilova autentifikatsiya va ma’lumotlar uchun Supabase loyihasini talab qiladi. Davom etish uchun loyiha kalitlarini qo‘shing.',
-    steps: [
-      'supabase.com saytida loyiha yarating',
-      'SQL editorda supabase/migrations dagi fayllarni va supabase/seed.sql ni bajaring',
-      '.env.example ni .env.local ga nusxalang va VITE_SUPABASE_URL hamda VITE_SUPABASE_ANON_KEY ni to‘ldiring',
-      'Dev serverni qayta ishga tushiring: npm run dev',
-    ],
-  },
   theme: {
     toggle: 'Mavzuni almashtirish',
   },
