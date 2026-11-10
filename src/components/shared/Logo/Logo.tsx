@@ -1,4 +1,6 @@
 import { useId } from 'react'
+import { Link } from 'react-router'
+import { cn } from '@/utils/cn'
 import styles from './Logo.module.scss'
 
 export function LogoMark({ className }: { className?: string }) {
@@ -26,9 +28,16 @@ export function LogoMark({ className }: { className?: string }) {
   )
 }
 
-export function Logo({ compact }: { compact?: boolean }) {
+interface LogoProps {
+  compact?: boolean
+  /** Where the logo navigates to. Defaults to the home page. */
+  to?: string
+  className?: string
+}
+
+export function Logo({ compact, to = '/', className }: LogoProps) {
   return (
-    <span className={styles.logo}>
+    <Link to={to} className={cn(styles.logo, className)} aria-label="R_M_R Test for intern">
       <LogoMark className={styles.mark} />
       {!compact && (
         <span className={styles.text}>
@@ -36,6 +45,6 @@ export function Logo({ compact }: { compact?: boolean }) {
           <span className={styles.tagline}>Test for intern</span>
         </span>
       )}
-    </span>
+    </Link>
   )
 }

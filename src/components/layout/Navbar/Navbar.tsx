@@ -17,9 +17,7 @@ export function Navbar({ onMenu }: { onMenu: () => void }) {
         <button type="button" className={styles.menuBtn} onClick={onMenu} aria-label={t.nav.openMenu}>
           <Menu />
         </button>
-        <Link to="/" className={styles.mobileLogo} aria-label={t.common.appName}>
-          <Logo />
-        </Link>
+        <Logo className={styles.mobileLogo} />
         <div className={styles.season}>
           <SeasonalGreeting />
         </div>

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { CheckCircle2 } from 'lucide-react'
 import { Suspense } from 'react'
-import { Link, Outlet } from 'react-router'
+import { Outlet } from 'react-router'
 import { LanguageSwitcher, Logo, ThemeSwitcher } from '@/components/shared'
 import { Spinner } from '@/components/ui'
 import { SeasonalGreeting } from '@/features/seasonal-effects'
@@ -48,9 +48,7 @@ export function AuthLayout() {
 
       <section className={styles.panel}>
         <div className={styles.topbar}>
-          <Link to="/login" className={styles.mobileLogo} aria-label={t.common.appName}>
-            <Logo />
-          </Link>
+          <Logo className={styles.mobileLogo} />
           <div className={styles.controls}>
             <LanguageSwitcher />
             <ThemeSwitcher />
