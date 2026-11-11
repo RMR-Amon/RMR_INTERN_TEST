@@ -1,4 +1,4 @@
-import { Lock, LogIn, Mail } from 'lucide-react'
+import { Lock, LogIn, UserRound } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router'
 import { Button, Input } from '@/components/ui'
@@ -8,11 +8,11 @@ import { useI18n } from '@/locales'
 import { toAppError } from '@/services/supabase/errors'
 import { useAuthStore } from '@/store/authStore'
 import { authApi } from '../api/authApi'
-import { hasErrors, validateEmail, validatePassword, type FieldErrors } from '../lib/validation'
+import { hasErrors, validateIdentifier, type FieldErrors } from '../lib/validation'
 import styles from './AuthForm.module.scss'
 import { FormNotice } from './FormNotice'
 
-type Field = 'email' | 'password'
+type Field = 'identifier' | 'password'
 
 export function LoginForm() {
   const { t } = useI18n()
@@ -20,24 +20,28 @@ export function LoginForm() {
   const navigate = useNavigate()
   const location = useLocation()
   const toMessage = useErrorMessage()
-  const [email, setEmail] = useState('')
+  const state = location.state as { from?: string; identifier?: string } | null
+  const [identifier, setIdentifier] = useState(state?.identifier ?? '')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState<FieldErrors<Field>>({})
   const [formError, setFormError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
-  const from = (location.state as { from?: string } | null)?.from ?? '/'
+  const from = state?.from ?? '/'
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const next = { email: validateEmail(email, t), password: validatePassword(password, t) }
+    const next = {
+      identifier: validateIdentifier(identifier, t),
+      password: password ? undefined : t.validation.required,
+    }
     setErrors(next)
     setFormError(null)
     if (hasErrors(next)) return
 
     setLoading(true)
     try {
-      const { session } = await authApi.signIn(email.trim(), password)
+      const { session } = await authApi.signIn(identifier.trim(), password)
       const profile = await useAuthStore.getState().hydrate(session)
       if (profile) navigate(from, { replace: true })
     } catch (err) {
@@ -63,14 +67,15 @@ export function LoginForm() {
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         {formError && <FormNotice tone="error">{formError}</FormNotice>}
         <Input
-          label={t.auth.email}
-          type="email"
-          autoComplete="email"
-          icon={<Mail />}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          error={errors.email}
-          placeholder="student@mars.uz"
+          label={t.auth.emailOrUsername}
+          autoComplete="username"
+          autoCapitalize="none"
+          spellCheck={false}
+          icon={<UserRound />}
+          value={identifier}
+          onChange={(e) => setIdentifier(e.target.value)}
+          error={errors.identifier}
+          placeholder={t.auth.emailOrUsernamePlaceholder}
         />
         <Input
           label={t.auth.password}

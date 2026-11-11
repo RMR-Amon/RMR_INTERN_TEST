@@ -26,9 +26,26 @@ const KNOWN_CODES = [
   'cannot_demote_self',
   'invalid_amount',
   'user_not_found',
+  'too_many_attempts',
 ] as const
 
-export type KnownErrorCode = (typeof KNOWN_CODES)[number] | 'network' | 'username_taken' | 'generic'
+/** Codes returned by the `signup` Edge Function (passed through as-is). */
+export type SignupErrorCode =
+  | 'email_taken'
+  | 'code_invalid'
+  | 'code_expired'
+  | 'code_attempts'
+  | 'code_cooldown'
+  | 'too_many_codes'
+  | 'email_send_failed'
+  | 'weak_password'
+
+export type KnownErrorCode =
+  | (typeof KNOWN_CODES)[number]
+  | SignupErrorCode
+  | 'network'
+  | 'username_taken'
+  | 'generic'
 
 interface PostgrestLikeError {
   message?: string
