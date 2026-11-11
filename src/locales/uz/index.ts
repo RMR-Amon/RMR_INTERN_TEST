@@ -302,6 +302,11 @@ export const uz: Dictionary = {
     role: { student: 'Talaba', admin: 'Administrator' },
   },
   settings: {
+    password: 'Parol',
+    passwordHint: 'Akkauntga kirish parolini o‘zgartiring',
+    currentPassword: 'Joriy parol',
+    changePassword: 'Parolni o‘zgartirish',
+    passwordChanged: 'Parol o‘zgartirildi',
     title: 'Sozlamalar',
     subtitle: 'Platformani o‘zingizga moslang',
     language: 'Til',
@@ -327,6 +332,9 @@ export const uz: Dictionary = {
     },
   },
   admin: {
+    deleteUser: 'Akkauntni o‘chirish',
+    deleteUserConfirm: 'Akkaunt barcha testlari, XP va yutuqlari bilan butunlay o‘chirilsinmi? Buni qaytarib bo‘lmaydi.',
+    userDeleted: 'Akkaunt o‘chirildi',
     overviewTitle: 'Admin paneli',
     overviewSubtitle: 'Platforma statistikasi real vaqtda',
     students: 'Talabalar',
@@ -450,6 +458,9 @@ export const uz: Dictionary = {
     },
   },
   errors: {
+    cannot_delete_self: 'O‘z akkauntingizni o‘chira olmaysiz.',
+    same_password: 'Yangi parol joriy paroldan farq qilishi kerak.',
+    invalid_current_password: 'Joriy parol noto‘g‘ri.',
     generic: 'Xatolik yuz berdi. Qaytadan urinib ko‘ring.',
     network: 'Tarmoq xatosi. Internet aloqasini tekshiring.',
     not_authenticated: 'Iltimos, qaytadan tizimga kiring.',

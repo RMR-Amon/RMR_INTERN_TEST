@@ -1,9 +1,10 @@
-import { ArrowLeft, Award, History, RotateCcw, Save, ShieldAlert, UserCog, Zap } from 'lucide-react'
+import { ArrowLeft, Award, History, Mail, RotateCcw, Save, ShieldAlert, Trash2, UserCog, Zap } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
+import { useNavigate } from 'react-router'
 import { Badge, Button, Card, CardHeader, ConfirmDialog, EmptyState, ErrorState, Input, LinkButton, Modal, Select, SkeletonCard, Switch, Table, tableStyles } from '@/components/ui'
 import { AchievementIcon } from '@/components/shared'
 import { achievementsApi } from '@/features/achievements/api/achievementsApi'
-import { validateFullName, validateUsername } from '@/features/auth/lib/validation'
+import { USERNAME_MAX, validateFullName, validateUsername } from '@/features/auth/lib/validation'
 import { ProfileHero } from '@/features/profile/components/ProfileHero'
 import { TestCardList } from '@/features/tests/components/TestCard/TestCard'
 import { useAsync } from '@/hooks/useAsync'
@@ -34,18 +35,22 @@ export function StudentDetail({ userId }: { userId: string }) {
         achievementsApi.list(true),
         achievementsApi.listEarned(userId),
         leaderboardApi.getRank(userId),
+        // Email lookup is optional: don't break the page if it fails
+        adminApi.getEmail(userId).catch(() => null),
       ]),
     [userId],
   )
 
   const [xpOpen, setXpOpen] = useState(false)
   const [resetOpen, setResetOpen] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const navigate = useNavigate()
   const [busy, setBusy] = useState(false)
 
   if (error) return <ErrorState message={toMessage(error)} onRetry={reload} />
   if (loading || !data) return <SkeletonCard lines={6} height={360} />
 
-  const [student, sessions, xpLog, achievements, earned, rank] = data
+  const [student, sessions, xpLog, achievements, earned, rank, email] = data
   if (!student) return <EmptyState title={t.admin.studentNotFound} action={<LinkButton to="/admin/students">{t.common.back}</LinkButton>} />
 
   const earnedIds = new Set(earned.map((e) => e.achievement_id))
@@ -83,6 +88,22 @@ export function StudentDetail({ userId }: { userId: string }) {
       setBusy(false)
     }
   }
+
+  const deleteUser = async () => {
+    setBusy(true)
+    try {
+      await adminApi.deleteUser(student.id)
+      toast.success(t.admin.userDeleted)
+      setDeleteOpen(false)
+      navigate('/admin/students', { replace: true })
+    } catch (err) {
+      toast.error(toMessage(err))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const isSelf = student.id === me?.id
 
   return (
     <div className="page">
@@ -138,7 +159,7 @@ export function StudentDetail({ userId }: { userId: string }) {
         <div className="stack">
           <StudentEditForm
             key={`${student.id}-${student.full_name}-${student.username}-${student.role}-${student.is_blocked}`}
-            student={student} isSelf={student.id === me?.id} onSaved={afterChange} />
+            student={student} email={email} isSelf={isSelf} onSaved={afterChange} />
 
           <Card>
             <CardHeader title={t.admin.adjustXp} icon={<Zap />} />
@@ -149,6 +170,11 @@ export function StudentDetail({ userId }: { userId: string }) {
               <Button variant="ghost" icon={<RotateCcw />} onClick={() => setResetOpen(true)}>
                 {t.admin.resetProgress}
               </Button>
+              {!isSelf && (
+                <Button variant="danger" icon={<Trash2 />} onClick={() => setDeleteOpen(true)}>
+                  {t.admin.deleteUser}
+                </Button>
+              )}
             </div>
           </Card>
 
@@ -192,11 +218,22 @@ export function StudentDetail({ userId }: { userId: string }) {
         onConfirm={() => void resetProgress()}
         onClose={() => setResetOpen(false)}
       />
+
+      <ConfirmDialog
+        open={deleteOpen}
+        title={t.admin.deleteUser}
+        description={t.admin.deleteUserConfirm}
+        confirmLabel={t.admin.deleteUser}
+        danger
+        loading={busy}
+        onConfirm={() => void deleteUser()}
+        onClose={() => setDeleteOpen(false)}
+      />
     </div>
   )
 }
 
-function StudentEditForm({ student, isSelf, onSaved }: { student: Profile; isSelf: boolean; onSaved: () => Promise<void> }) {
+function StudentEditForm({ student, email, isSelf, onSaved }: { student: Profile; email: string | null; isSelf: boolean; onSaved: () => Promise<void> }) {
   const { t } = useI18n()
   const toMessage = useErrorMessage()
   const [fullName, setFullName] = useState(student.full_name)
@@ -227,11 +264,13 @@ function StudentEditForm({ student, isSelf, onSaved }: { student: Profile; isSel
     <Card>
       <CardHeader title={t.admin.editStudent} icon={<UserCog />} />
       <form className={styles.form} onSubmit={submit} noValidate>
+        {email && <Input label={t.auth.email} icon={<Mail />} value={email} readOnly />}
         <Input label={t.auth.fullName} value={fullName} onChange={(e) => setFullName(e.target.value)} error={errors.fullName} />
         <Input
           label={t.auth.username}
           value={username}
-          onChange={(e) => setUsername(e.target.value.toLowerCase())}
+          onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/\s/g, ''))}
+          maxLength={USERNAME_MAX}
           error={errors.username}
         />
         <Select

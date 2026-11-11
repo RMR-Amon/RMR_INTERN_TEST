@@ -1,3 +1,4 @@
+export { ChangePasswordForm } from './components/ChangePasswordForm'
 export { ForgotPasswordForm } from './components/ForgotPasswordForm'
 export { LoginForm } from './components/LoginForm'
 export { RegisterForm } from './components/RegisterForm'

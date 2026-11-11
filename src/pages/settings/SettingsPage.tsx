@@ -2,6 +2,7 @@ import { Globe, Moon, Palette, Settings, Sun } from 'lucide-react'
 import { Card, CardHeader, SegmentedControl } from '@/components/ui'
 import { PageHeader } from '@/components/shared'
 import { useChangeLanguage } from '@/hooks/useChangeLanguage'
+import { ChangePasswordForm } from '@/features/auth'
 import { SeasonalSettings } from '@/features/seasonal-effects'
 import { LANGUAGES, useI18n } from '@/locales'
 import { usePreferencesStore } from '@/store/preferencesStore'
@@ -38,6 +39,7 @@ export default function SettingsPage() {
         />
       </Card>
       <SeasonalSettings />
+      <ChangePasswordForm />
     </div>
   )
 }

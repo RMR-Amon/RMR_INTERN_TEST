@@ -80,6 +80,24 @@ export const authApi = {
     if (error) throw toAppError(error)
   },
 
+  /** Re-checks the current password, then sets a new one. */
+  async changePassword(currentPassword: string, newPassword: string) {
+    const { data } = await supabase.auth.getUser()
+    const email = data.user?.email
+    if (!email) throw new AppError('not_authenticated')
+
+    const { error: checkError } = await supabase.auth.signInWithPassword({ email, password: currentPassword })
+    if (checkError) throw new AppError('invalid_current_password', checkError.message)
+
+    const { error } = await supabase.auth.updateUser({ password: newPassword })
+    if (error) {
+      const msg = error.message.toLowerCase()
+      if (msg.includes('different')) throw new AppError('same_password', error.message)
+      if (msg.includes('password')) throw new AppError('weak_password', error.message)
+      throw toAppError(error)
+    }
+  },
+
   async signOut() {
     await supabase.auth.signOut()
   },

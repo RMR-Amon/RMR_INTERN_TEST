@@ -302,6 +302,11 @@ export const ru: Dictionary = {
     role: { student: 'Студент', admin: 'Администратор' },
   },
   settings: {
+    password: 'Пароль',
+    passwordHint: 'Смените пароль для входа в аккаунт',
+    currentPassword: 'Текущий пароль',
+    changePassword: 'Сменить пароль',
+    passwordChanged: 'Пароль изменён',
     title: 'Настройки',
     subtitle: 'Настройте платформу под себя',
     language: 'Язык',
@@ -327,6 +332,9 @@ export const ru: Dictionary = {
     },
   },
   admin: {
+    deleteUser: 'Удалить аккаунт',
+    deleteUserConfirm: 'Удалить аккаунт навсегда вместе со всеми тестами, XP и достижениями? Действие необратимо.',
+    userDeleted: 'Аккаунт удалён',
     overviewTitle: 'Панель администратора',
     overviewSubtitle: 'Статистика платформы в реальном времени',
     students: 'Студенты',
@@ -450,6 +458,9 @@ export const ru: Dictionary = {
     },
   },
   errors: {
+    cannot_delete_self: 'Нельзя удалить собственный аккаунт.',
+    same_password: 'Новый пароль должен отличаться от текущего.',
+    invalid_current_password: 'Текущий пароль неверный.',
     generic: 'Что-то пошло не так. Попробуйте ещё раз.',
     network: 'Ошибка сети. Проверьте подключение к интернету.',
     not_authenticated: 'Пожалуйста, войдите снова.',

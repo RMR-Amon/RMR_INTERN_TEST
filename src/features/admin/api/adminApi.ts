@@ -90,6 +90,15 @@ export const adminApi = {
     ) as number
   },
 
+  async getEmail(id: string): Promise<string | null> {
+    return unwrap(await supabase.rpc('admin_get_email', { p_user_id: id })) as string | null
+  },
+
+  /** Permanently deletes the account and all of its data. */
+  async deleteUser(id: string) {
+    unwrap(await supabase.rpc('admin_delete_user', { p_user_id: id }))
+  },
+
   async resetProgress(id: string) {
     unwrap(await supabase.rpc('admin_reset_progress', { p_user_id: id }))
   },

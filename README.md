@@ -15,6 +15,7 @@
    2. `supabase/migrations/0002_functions.sql` — серверная логика (тесты, подсчёт баллов, XP, рейтинг, админ-RPC)
    3. `supabase/seed.sql` — технологии, достижения, настройки и 100 вопросов
    4. `supabase/migrations/0003_auth_hardening.sql` — вход по username/email, коды подтверждения email, свободный формат username
+   5. `supabase/migrations/0004_admin_tools.sql` — просмотр email и удаление аккаунтов в админке
 3. **Authentication → URL Configuration:**
    - *Site URL*: `http://localhost:5173` (в продакшене — ваш домен)
    - *Redirect URLs*: добавьте `http://localhost:5173/reset-password` и `http://localhost:5173/login`
@@ -50,6 +51,10 @@ npm run lint
 update public.profiles set role = 'admin' where username = 'ваш_username';
 ```
 После перезахода в сайдбаре появится раздел «Администрирование».
+
+Возможности админ-панели (`/admin`): статистика платформы; студенты — просмотр email, редактирование имени и username, назначение роли, блокировка, начисление/списание XP, сброс прогресса, выдача достижений, удаление аккаунта; банк вопросов (UZ/RU/EN); категории; достижения; история тестов; настройки тестов и XP.
+
+Сменить пароль можно в **Настройки → Пароль**.
 
 ---
 

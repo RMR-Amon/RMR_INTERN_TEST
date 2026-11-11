@@ -27,6 +27,7 @@ const KNOWN_CODES = [
   'invalid_amount',
   'user_not_found',
   'too_many_attempts',
+  'cannot_delete_self',
 ] as const
 
 /** Codes returned by the `signup` Edge Function (passed through as-is). */
@@ -39,6 +40,7 @@ export type SignupErrorCode =
   | 'too_many_codes'
   | 'email_send_failed'
   | 'weak_password'
+  | 'same_password'
 
 export type KnownErrorCode =
   | (typeof KNOWN_CODES)[number]

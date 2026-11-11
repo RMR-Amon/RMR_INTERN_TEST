@@ -303,6 +303,11 @@ export const en = {
     role: { student: 'Student', admin: 'Administrator' },
   },
   settings: {
+    password: 'Password',
+    passwordHint: 'Change the password you use to sign in',
+    currentPassword: 'Current password',
+    changePassword: 'Change password',
+    passwordChanged: 'Password changed',
     title: 'Settings',
     subtitle: 'Personalize your experience',
     language: 'Language',
@@ -328,6 +333,9 @@ export const en = {
     },
   },
   admin: {
+    deleteUser: 'Delete account',
+    deleteUserConfirm: 'Permanently delete this account with all of its tests, XP and achievements? This cannot be undone.',
+    userDeleted: 'Account deleted',
     overviewTitle: 'Admin overview',
     overviewSubtitle: 'Platform statistics in real time',
     students: 'Students',
@@ -451,6 +459,9 @@ export const en = {
     },
   },
   errors: {
+    cannot_delete_self: 'You cannot delete your own account.',
+    same_password: 'The new password must be different from the current one.',
+    invalid_current_password: 'Current password is incorrect.',
     generic: 'Something went wrong. Please try again.',
     network: 'Network error. Check your internet connection.',
     not_authenticated: 'Please sign in again.',
