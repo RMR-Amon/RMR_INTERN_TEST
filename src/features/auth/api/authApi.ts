@@ -1,3 +1,4 @@
+import { FunctionsHttpError } from '@supabase/supabase-js'
 import { supabase } from '@/services/supabase/client'
 import { AppError, toAppError, unwrap } from '@/services/supabase/errors'
 import type { Language } from '@/types'
@@ -10,8 +11,29 @@ export interface RegisterPayload {
   language: Language
 }
 
+/** Call the `signup` Edge Function and turn its `{ error }` body into an AppError. */
+const callSignup = async (body: Record<string, unknown>) => {
+  const { error } = await supabase.functions.invoke('signup', { body })
+  if (!error) return
+  if (error instanceof FunctionsHttpError) {
+    const payload = (await error.context.json().catch(() => null)) as { error?: string } | null
+    throw new AppError(payload?.error ?? 'generic', error.message)
+  }
+  throw toAppError(error)
+}
+
 export const authApi = {
-  async signIn(email: string, password: string) {
+  /** `identifier` is an email (contains "@") or a username. */
+  async signIn(identifier: string, password: string) {
+    let email = identifier.trim()
+    if (!email.includes('@')) {
+      const resolved = unwrap(
+        await supabase.rpc('resolve_login_email', { p_username: email.toLowerCase(), p_password: password }),
+      ) as string | null
+      if (!resolved) throw new AppError('invalid_credentials')
+      email = resolved
+    }
+
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
       const msg = error.message.toLowerCase()
@@ -22,21 +44,22 @@ export const authApi = {
     return data
   },
 
-  /** Returns the session when it was created immediately (email confirmation disabled). */
-  async register({ email, password, fullName, username, language }: RegisterPayload) {
-    const available = await authApi.isUsernameAvailable(username)
-    if (!available) throw new AppError('username_taken')
+  /** Step 1 of sign-up: email a 6-digit code (also checks email / username are free). */
+  async sendSignupCode(email: string, username: string, language: Language) {
+    await callSignup({ action: 'send', email: email.trim(), username: username.toLowerCase(), language })
+  },
 
-    const { data, error } = await supabase.auth.signUp({
-      email,
+  /** Step 2 of sign-up: verify the code and create the (already confirmed) account. No session is created. */
+  async completeSignup({ code, email, password, fullName, username, language }: RegisterPayload & { code: string }) {
+    await callSignup({
+      action: 'verify',
+      code,
+      email: email.trim(),
       password,
-      options: {
-        data: { full_name: fullName.trim(), username: username.toLowerCase(), language },
-        emailRedirectTo: `${window.location.origin}/login`,
-      },
+      fullName: fullName.trim(),
+      username: username.toLowerCase(),
+      language,
     })
-    if (error) throw toAppError(error)
-    return data.session
   },
 
   async isUsernameAvailable(username: string) {

@@ -89,3 +89,16 @@
     color: var(--danger);
   }
 }
+
+.code {
+  font-family: $font-mono;
+  font-size: $fs-xl;
+  letter-spacing: 0.5em;
+}
+
+.codeActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: $space-2;
+}

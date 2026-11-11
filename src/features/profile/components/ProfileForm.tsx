@@ -1,7 +1,7 @@
 import { AtSign, Save, Trash2, Upload, User } from 'lucide-react'
 import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { Avatar, Button, Card, CardHeader, Input } from '@/components/ui'
-import { validateFullName, validateUsername } from '@/features/auth/lib/validation'
+import { USERNAME_MAX, validateFullName, validateUsername } from '@/features/auth/lib/validation'
 import { useErrorMessage } from '@/hooks/useErrorMessage'
 import { useI18n } from '@/locales'
 import { toAppError } from '@/services/supabase/errors'
@@ -123,7 +123,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
           onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/\s/g, ''))}
           error={errors.username}
           hint={t.auth.usernameHint}
-          maxLength={20}
+          maxLength={USERNAME_MAX}
         />
         <div className={styles.formActions}>
           <Button type="submit" icon={<Save />} loading={saving} disabled={!dirty}>

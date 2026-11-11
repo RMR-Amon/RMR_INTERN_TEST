@@ -14,10 +14,16 @@
    1. `supabase/migrations/0001_schema.sql` — таблицы, индексы, RLS, bucket для аватаров
    2. `supabase/migrations/0002_functions.sql` — серверная логика (тесты, подсчёт баллов, XP, рейтинг, админ-RPC)
    3. `supabase/seed.sql` — технологии, достижения, настройки и 100 вопросов
+   4. `supabase/migrations/0003_auth_hardening.sql` — вход по username/email, коды подтверждения email, свободный формат username
 3. **Authentication → URL Configuration:**
    - *Site URL*: `http://localhost:5173` (в продакшене — ваш домен)
    - *Redirect URLs*: добавьте `http://localhost:5173/reset-password` и `http://localhost:5173/login`
-4. (Необязательно) **Authentication → Providers → Email**: отключите «Confirm email» для локальной разработки, чтобы входить сразу после регистрации.
+4. **Регистрация с кодом из Gmail** (Edge Function `supabase/functions/signup`):
+   - Задеплойте функцию: `supabase functions deploy signup --no-verify-jwt`
+   - В Google-аккаунте включите двухэтапную проверку и создайте **пароль приложения** (myaccount.google.com/apppasswords)
+   - Добавьте секреты (**Edge Functions → Secrets**): `GMAIL_USER` — адрес Gmail, `GMAIL_APP_PASSWORD` — пароль приложения
+   - Письма приходят от имени **R_M_R**. Код — 6 цифр, действует 10 минут, 5 попыток, повторная отправка раз в минуту (не более 5 в час)
+   - Рекомендуется выключить **Authentication → Sign In / Providers → Allow new users to sign up**: аккаунты создаёт только функция после проверки кода, а прямой `signUp` через публичный ключ станет недоступен
 
 ### 2. Переменные окружения
 ```bash
@@ -58,6 +64,10 @@ update public.profiles set role = 'admin' where username = 'ваш_username';
 | Анти-фарминг | Полный XP только за **первый** верный ответ на вопрос, повторный — `repeat_xp_percent` (по умолчанию 20%); бонусы ограничены `daily_bonus_cap` тестами в день; неверные ответы XP не дают |
 | Профиль | Студент может менять только имя, username, аватар и язык (column-level GRANT). XP/роль — только через админ-RPC |
 | Админка | Маршруты защищены на клиенте **и** на сервере (`is_admin()` в RLS и в каждой RPC) |
+| Пароли | Хранятся только как bcrypt-хеш (Supabase Auth); мы их нигде не сохраняем |
+| Коды подтверждения | Хранятся как bcrypt-хеш, ключ — SHA-256 от email (открытых email в таблице нет) |
+| Один email — один аккаунт | Проверяется до отправки кода и при создании (уникальный индекс в `auth.users`) |
+| Вход по username | `resolve_login_email()` отдаёт email только при верном пароле; 10 ошибок → блок входа по username на 15 минут |
 
 Начисление XP: easy 10 / medium 15 / hard 20 за верный ответ + бонус за завершение (≥50%) + за высокий балл (≥90%) + за 100% + XP достижений. Всё настраивается в «Настройки тестов».
 
